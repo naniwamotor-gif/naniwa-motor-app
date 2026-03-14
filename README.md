@@ -1,1 +1,1141 @@
-# naniwa-motor-app
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>なにわモーター 素材買取管理</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg1: #08110d;
+      --bg2: #0d1712;
+      --card: rgba(14, 24, 19, 0.95);
+      --card2: #0a120e;
+      --line: #234335;
+      --line2: #2d4b3d;
+      --text: #eef7f1;
+      --muted: #a8c6b3;
+      --accent: #59f0a8;
+      --accent2: #7fffc0;
+      --blue: #1ea7ff;
+      --red: #e34a4a;
+      --green: #00c16a;
+      --gray: #6b7f74;
+      --yellow: #ffd166;
+      --purple: #7c3aed;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(0, 180, 120, 0.15), transparent 30%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 100%);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1480px;
+      margin: 24px auto;
+      padding: 16px;
+    }
+
+    .header {
+      background: rgba(10, 20, 16, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      margin-bottom: 18px;
+    }
+
+    .title {
+      margin: 0;
+      text-align: center;
+      font-size: 36px;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    .subtitle {
+      text-align: center;
+      margin-top: 8px;
+      color: #a9d8bd;
+      font-size: 14px;
+    }
+
+    .lock-screen {
+      max-width: 520px;
+      margin: 80px auto;
+      background: rgba(10, 20, 16, 0.95);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.28);
+    }
+
+    .lock-title {
+      font-size: 28px;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .lock-sub {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+    }
+
+    .section-title {
+      margin: 0 0 14px;
+      color: var(--accent2);
+      font-size: 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: #b7d9c4;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      background: #09110d;
+      color: #effff7;
+      border: 1px solid #315544;
+      border-radius: 10px;
+      padding: 10px 12px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.15);
+      margin-right: 8px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: #e9fff4;
+      margin-top: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #2f4e40;
+      padding: 10px 8px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #0c1510;
+      color: var(--accent2);
+      font-size: 14px;
+    }
+
+    td {
+      background: #101a15;
+      font-size: 14px;
+    }
+
+    .summary-box {
+      background: var(--card2);
+      border: 1px solid var(--line2);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .summary-title {
+      font-size: 13px;
+      color: #a8d2b8;
+      margin-bottom: 8px;
+    }
+
+    .summary-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff;
+      word-break: break-word;
+    }
+
+    .summary-value.main {
+      color: var(--accent);
+    }
+
+    .mini-box {
+      background: var(--card2);
+      border: 1px solid var(--line2);
+      border-radius: 14px;
+      padding: 14px;
+      min-height: 120px;
+    }
+
+    .mini-box-title {
+      margin: 0 0 10px;
+      color: var(--accent2);
+      font-size: 16px;
+    }
+
+    .big-stat {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.95;
+    }
+
+    .btn-save { background: var(--green); color: white; }
+    .btn-copy { background: var(--blue); color: white; }
+    .btn-reset { background: var(--gray); color: white; }
+    .btn-delete { background: var(--red); color: white; }
+    .btn-print { background: var(--yellow); color: #111; }
+    .btn-lock { background: var(--purple); color: white; }
+
+    .copy-box textarea {
+      min-height: 260px;
+      line-height: 1.7;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .history-item {
+      background: var(--card2);
+      border: 1px solid #294537;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .history-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: #a5c6b4;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .history-name {
+      color: #effff7;
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .history-total {
+      color: var(--accent);
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .history-detail,
+    .history-memo {
+      color: #dceee4;
+      font-size: 13px;
+      line-height: 1.7;
+      word-break: break-word;
+    }
+
+    .history-memo {
+      margin-top: 8px;
+      color: #bad8c8;
+    }
+
+    .history-actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .rank-list {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.9;
+      color: #eefcf4;
+    }
+
+    .empty {
+      text-align: center;
+      color: #9fc0ae;
+      padding: 18px 0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .stop-badge,
+    .ok-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .stop-badge {
+      background: rgba(227, 74, 74, 0.15);
+      color: #ff9e9e;
+      border: 1px solid rgba(227, 74, 74, 0.5);
+    }
+
+    .ok-badge {
+      background: rgba(0, 193, 106, 0.15);
+      color: #85ffc5;
+      border: 1px solid rgba(0, 193, 106, 0.45);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+      }
+      .buttons,
+      #lockWrapper,
+      .no-print {
+        display: none !important;
+      }
+      .card,
+      .header {
+        box-shadow: none;
+        border: 1px solid #999;
+        background: #fff;
+        color: #000;
+      }
+      textarea,
+      input {
+        border: 1px solid #999;
+        color: #000;
+        background: #fff;
+      }
+      .title,
+      .section-title {
+        color: #000;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .summary {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .title { font-size: 28px; }
+      th, td {
+        font-size: 12px;
+        padding: 8px 6px;
+      }
+      .summary-value,
+      .big-stat {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="lockWrapper" class="lock-screen">
+    <div class="lock-title">なにわモーター 管理ロック</div>
+    <div class="lock-sub">
+      パスコードを入れると司令盤が開きます。<br>
+      初期パスコードは <b>7000</b> です。
+    </div>
+    <label for="unlockCode">パスコード</label>
+    <input type="password" id="unlockCode" placeholder="4桁くらい推奨" />
+    <div class="buttons">
+      <button class="btn-lock" onclick="unlockApp()">解除</button>
+      <button class="btn-reset" onclick="changePasscode()">パスコード変更</button>
+    </div>
+    <div class="muted">このロックは簡易管理用です。ブラウザ保存なので、金庫よりは鍵付き工具箱寄りです。</div>
+  </div>
+
+  <div id="appWrapper" class="hidden">
+    <div class="container">
+      <div class="header">
+        <h1 class="title">なにわモーター 素材買取 プロ仕様</h1>
+        <div class="subtitle">買取、履歴、joint、集計、CSV、印刷まで回せる現場用コントロール盤</div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">基本情報</h2>
+        <div class="grid-4">
+          <div>
+            <label for="staffName">担当従業員名</label>
+            <input type="text" id="staffName" placeholder="例: ザコ太郎" />
+          </div>
+          <div>
+            <label for="customerName">業者名 / お客様名</label>
+            <input type="text" id="customerName" placeholder="例: ○○商会" />
+          </div>
+          <div>
+            <label for="bonusThreshold">ボーナス発生ライン</label>
+            <input type="number" id="bonusThreshold" value="2000" min="0" />
+          </div>
+          <div>
+            <label for="bonusAmount">ボーナス個数</label>
+            <input type="number" id="bonusAmount" value="30" min="0" />
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:14px;">
+          <div>
+            <label for="memo">メモ</label>
+            <textarea id="memo" placeholder="例: 金属くず多め / 急ぎ案件 / joint対象"></textarea>
+          </div>
+          <div>
+            <label for="jointThreshold">joint配布条件（金属くず）</label>
+            <input type="number" id="jointThreshold" value="2000" min="0" />
+            <div class="checkbox-row">
+              <label><input type="checkbox" id="bonusEnabled" checked />ボーナス有効</label>
+              <label><input type="checkbox" id="jointEnabled" checked />joint判定有効</label>
+            </div>
+            <div class="muted">金属くずが指定数以上なら「joint30個対象」と表示します。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">素材計算</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>素材</th>
+              <th>数量</th>
+              <th>単価</th>
+              <th>状態</th>
+              <th>小計</th>
+              <th>ボーナス</th>
+            </tr>
+          </thead>
+          <tbody id="materials-body"></tbody>
+        </table>
+
+        <div class="summary">
+          <div class="summary-box">
+            <div class="summary-title">今回の小計</div>
+            <div class="summary-value"><span id="subtotal">0</span> 円</div>
+          </div>
+          <div class="summary-box">
+            <div class="summary-title">今回のボーナス</div>
+            <div class="summary-value"><span id="bonusTotal">0</span> 個</div>
+          </div>
+          <div class="summary-box">
+            <div class="summary-title">今回の合計</div>
+            <div class="summary-value main"><span id="grandTotal">0</span> 円</div>
+          </div>
+          <div class="summary-box">
+            <div class="summary-title">履歴10件総合計</div>
+            <div class="summary-value"><span id="historyGrandTotal">0</span> 円</div>
+          </div>
+          <div class="summary-box">
+            <div class="summary-title">joint判定</div>
+            <div class="summary-value" id="jointStatus">対象外</div>
+          </div>
+          <div class="summary-box">
+            <div class="summary-title">停止素材数</div>
+            <div class="summary-value" id="stoppedCount">0</div>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button class="btn-save" onclick="saveHistory()">この内容を履歴に保存</button>
+          <button class="btn-copy" onclick="copySummary()">コピペ用明細をコピー</button>
+          <button class="btn-print" onclick="window.print()">印刷</button>
+          <button class="btn-copy" onclick="downloadCSV()">CSV出力</button>
+          <button class="btn-reset" onclick="resetInputs()">入力をリセット</button>
+          <button class="btn-delete" onclick="deleteAllHistory()">履歴を全削除</button>
+          <button class="btn-lock no-print" onclick="lockApp()">ロック</button>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h2 class="section-title">コピペ用明細</h2>
+          <div class="copy-box">
+            <textarea id="summaryText" readonly></textarea>
+          </div>
+          <div class="muted">Discordや案内文にそのまま貼りやすい形です。</div>
+        </div>
+
+        <div class="card">
+          <h2 class="section-title">日別 / 週別 / 月別 集計</h2>
+          <div class="grid-3">
+            <div class="mini-box">
+              <h3 class="mini-box-title">今日</h3>
+              <div class="big-stat" id="todayTotal">0円</div>
+              <div class="muted">件数: <span id="todayCount">0</span></div>
+            </div>
+            <div class="mini-box">
+              <h3 class="mini-box-title">今週</h3>
+              <div class="big-stat" id="weekTotal">0円</div>
+              <div class="muted">件数: <span id="weekCount">0</span></div>
+            </div>
+            <div class="mini-box">
+              <h3 class="mini-box-title">今月</h3>
+              <div class="big-stat" id="monthTotal">0円</div>
+              <div class="muted">件数: <span id="monthCount">0</span></div>
+            </div>
+          </div>
+          <div class="mini-box" style="margin-top:12px;">
+            <h3 class="mini-box-title">最新取引先</h3>
+            <div class="big-stat" id="latestCustomer" style="font-size:18px;">-</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="section-title">ランキング</h2>
+          <div class="mini-box">
+            <h3 class="mini-box-title">素材持ち込みランキング</h3>
+            <ol class="rank-list" id="materialRanking">
+              <li>まだデータがありません</li>
+            </ol>
+          </div>
+          <div class="mini-box" style="margin-top:12px;">
+            <h3 class="mini-box-title">業者ランキング</h3>
+            <ol class="rank-list" id="customerRanking">
+              <li>まだデータがありません</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">買取履歴（最新10件）</h2>
+        <div id="historyList" class="history-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const materials = [
+      { key: "iron", name: "鉄", price: 2000, stopped: false },
+      { key: "aluminum", name: "アルミ", price: 2000, stopped: false },
+      { key: "cloth", name: "布", price: 2000, stopped: false },
+      { key: "scrap", name: "金属くず", price: 4000, stopped: false },
+      { key: "glass", name: "ガラス", price: 4000, stopped: false },
+      { key: "copper", name: "銅", price: 4000, stopped: false },
+      { key: "steel", name: "鋼鉄", price: 2000, stopped: false },
+      { key: "plastic", name: "プラスチック", price: 2000, stopped: false },
+      { key: "rubber", name: "ゴム", price: 2000, stopped: false }
+    ];
+
+    const HISTORY_KEY = "naniwa_motor_complete_history_v2";
+    const SETTINGS_KEY = "naniwa_motor_settings_v2";
+    const PASSCODE_KEY = "naniwa_motor_passcode_v1";
+
+    function formatNumber(num) {
+      return Number(num || 0).toLocaleString("ja-JP");
+    }
+
+    function getNowString() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      const d = String(now.getDate()).padStart(2, "0");
+      const h = String(now.getHours()).padStart(2, "0");
+      const mi = String(now.getMinutes()).padStart(2, "0");
+      const s = String(now.getSeconds()).padStart(2, "0");
+      return `${y}/${m}/${d} ${h}:${mi}:${s}`;
+    }
+
+    function getDateKey(date = new Date()) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
+      return `${y}/${m}/${d}`;
+    }
+
+    function getTodayKey() {
+      return getDateKey(new Date());
+    }
+
+    function getWeekStart(d = new Date()) {
+      const date = new Date(d);
+      const day = date.getDay();
+      const diff = day === 0 ? -6 : 1 - day;
+      date.setDate(date.getDate() + diff);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+
+    function getMonthStart(d = new Date()) {
+      const date = new Date(d.getFullYear(), d.getMonth(), 1);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+
+    function saveSettings() {
+      const stopped = {};
+      materials.forEach((material) => {
+        const checkbox = document.getElementById(`${material.key}_stopped`);
+        stopped[material.key] = checkbox ? checkbox.checked : material.stopped;
+      });
+
+      const prices = {};
+      materials.forEach((m) => {
+        const el = document.getElementById(`${m.key}_price`);
+        prices[m.key] = Number(el ? el.value : m.price) || m.price;
+      });
+
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify({ stopped, prices }));
+    }
+
+    function loadSettings() {
+      const raw = localStorage.getItem(SETTINGS_KEY);
+      if (!raw) return;
+      try {
+        const settings = JSON.parse(raw);
+        if (settings.stopped) {
+          materials.forEach((m) => {
+            if (typeof settings.stopped[m.key] === "boolean") {
+              m.stopped = settings.stopped[m.key];
+            }
+          });
+        }
+        if (settings.prices) {
+          materials.forEach((m) => {
+            if (settings.prices[m.key] !== undefined) {
+              m.price = Number(settings.prices[m.key]) || m.price;
+            }
+          });
+        }
+      } catch (e) {}
+    }
+
+    function getSavedPasscode() {
+      return localStorage.getItem(PASSCODE_KEY) || "7000";
+    }
+
+    function unlockApp() {
+      const input = document.getElementById("unlockCode").value.trim();
+      if (input !== getSavedPasscode()) {
+        alert("パスコードが違います。");
+        return;
+      }
+      document.getElementById("lockWrapper").classList.add("hidden");
+      document.getElementById("appWrapper").classList.remove("hidden");
+      calc();
+      renderHistory();
+    }
+
+    function lockApp() {
+      document.getElementById("appWrapper").classList.add("hidden");
+      document.getElementById("lockWrapper").classList.remove("hidden");
+      document.getElementById("unlockCode").value = "";
+    }
+
+    function changePasscode() {
+      const currentInput = document.getElementById("unlockCode").value.trim();
+      if (currentInput && currentInput !== getSavedPasscode()) {
+        alert("現在入力中のパスコードが違います。");
+        return;
+      }
+      const newCode = prompt("新しいパスコードを入力してください", getSavedPasscode());
+      if (!newCode) return;
+      localStorage.setItem(PASSCODE_KEY, newCode);
+      alert("パスコードを変更しました。");
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById("materials-body");
+      tbody.innerHTML = "";
+
+      materials.forEach((material) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${material.name}</td>
+          <td><input type="number" min="0" value="0" id="${material.key}" oninput="calc()" /></td>
+          <td><input type="number" min="0" value="${material.price}" id="${material.key}_price" oninput="onPriceChange()" /></td>
+          <td>
+            <label style="display:flex;align-items:center;justify-content:center;gap:8px;margin:0;">
+              <input type="checkbox" id="${material.key}_stopped" ${material.stopped ? "checked" : ""} onchange="calc(); saveSettings();" />
+              <span class="${material.stopped ? "stop-badge" : "ok-badge"}" id="${material.key}_status_badge">${material.stopped ? "停止中" : "買取中"}</span>
+            </label>
+          </td>
+          <td id="${material.key}_subtotal">0</td>
+          <td id="${material.key}_bonus">0</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function onPriceChange() {
+      saveSettings();
+      calc();
+    }
+
+    function getCalcData() {
+      const bonusEnabled = document.getElementById("bonusEnabled").checked;
+      const bonusThreshold = Number(document.getElementById("bonusThreshold").value) || 0;
+      const bonusAmount = Number(document.getElementById("bonusAmount").value) || 0;
+      const jointEnabled = document.getElementById("jointEnabled").checked;
+      const jointThreshold = Number(document.getElementById("jointThreshold").value) || 0;
+
+      let subtotal = 0;
+      let bonusTotal = 0;
+      let scrapQty = 0;
+      let stoppedCount = 0;
+      const details = [];
+
+      materials.forEach((material) => {
+        const qty = Number(document.getElementById(material.key).value) || 0;
+        const unitPrice = Number(document.getElementById(`${material.key}_price`).value) || 0;
+        const stopped = document.getElementById(`${material.key}_stopped`).checked;
+        const itemSubtotal = stopped ? 0 : qty * unitPrice;
+        const itemBonus = bonusEnabled && !stopped && qty >= bonusThreshold && qty > 0 ? bonusAmount : 0;
+
+        if (stopped) stoppedCount++;
+        if (material.key === "scrap") scrapQty = qty;
+
+        subtotal += itemSubtotal;
+        bonusTotal += itemBonus;
+
+        const badge = document.getElementById(`${material.key}_status_badge`);
+        badge.textContent = stopped ? "停止中" : "買取中";
+        badge.className = stopped ? "stop-badge" : "ok-badge";
+
+        document.getElementById(`${material.key}_subtotal`).innerText = formatNumber(itemSubtotal);
+        document.getElementById(`${material.key}_bonus`).innerText = formatNumber(itemBonus);
+
+        if (qty > 0) {
+          details.push({
+            name: material.name,
+            key: material.key,
+            qty,
+            unitPrice,
+            subtotal: itemSubtotal,
+            bonus: itemBonus,
+            stopped
+          });
+        }
+      });
+
+      const jointEligible = jointEnabled && scrapQty >= jointThreshold && scrapQty > 0;
+
+      return {
+        subtotal,
+        bonusTotal,
+        grandTotal: subtotal,
+        details,
+        jointEligible,
+        stoppedCount
+      };
+    }
+
+    function buildSummaryText() {
+      const staffName = document.getElementById("staffName").value.trim();
+      const customerName = document.getElementById("customerName").value.trim();
+      const memo = document.getElementById("memo").value.trim();
+      const calcData = getCalcData();
+
+      const lines = [];
+      lines.push("【なにわモーター 素材買取明細】");
+      if (staffName) lines.push(`担当: ${staffName}`);
+      if (customerName) lines.push(`相手: ${customerName}`);
+      lines.push("");
+
+      if (calcData.details.length === 0) {
+        lines.push("素材入力なし");
+      } else {
+        calcData.details.forEach((item) => {
+          let line = `・${item.name} ${formatNumber(item.qty)}個 × ${formatNumber(item.unitPrice)}円 = ${formatNumber(item.subtotal)}円`;
+          if (item.stopped) {
+            line += " / 買取停止";
+          } else if (item.bonus > 0) {
+            line += ` / ボーナス ${formatNumber(item.bonus)}個`;
+          }
+          lines.push(line);
+        });
+      }
+
+      lines.push("");
+      lines.push(`小計: ${formatNumber(calcData.subtotal)}円`);
+      lines.push(`ボーナス: ${formatNumber(calcData.bonusTotal)}個`);
+      lines.push(`合計: ${formatNumber(calcData.grandTotal)}円`);
+      lines.push(`joint判定: ${calcData.jointEligible ? "対象（joint30個）" : "対象外"}`);
+
+      if (memo) {
+        lines.push("");
+        lines.push(`メモ: ${memo}`);
+      }
+
+      return lines.join("\n");
+    }
+
+    function calc() {
+      const data = getCalcData();
+      document.getElementById("subtotal").innerText = formatNumber(data.subtotal);
+      document.getElementById("bonusTotal").innerText = formatNumber(data.bonusTotal);
+      document.getElementById("grandTotal").innerText = formatNumber(data.grandTotal);
+      document.getElementById("jointStatus").innerText = data.jointEligible ? "対象" : "対象外";
+      document.getElementById("stoppedCount").innerText = formatNumber(data.stoppedCount);
+      document.getElementById("summaryText").value = buildSummaryText();
+      saveSettings();
+    }
+
+    function loadHistory() {
+      const raw = localStorage.getItem(HISTORY_KEY);
+      if (!raw) return [];
+      try {
+        return JSON.parse(raw);
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveHistoryToStorage(history) {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    }
+
+    function saveHistory() {
+      const staffName = document.getElementById("staffName").value.trim();
+      const customerName = document.getElementById("customerName").value.trim();
+      const memo = document.getElementById("memo").value.trim();
+      const calcData = getCalcData();
+
+      if (calcData.details.length === 0 || calcData.grandTotal <= 0) {
+        alert("数量が入力されていません。");
+        return;
+      }
+
+      const record = {
+        id: Date.now(),
+        datetime: getNowString(),
+        dateKey: getTodayKey(),
+        staffName,
+        customerName,
+        memo,
+        subtotal: calcData.subtotal,
+        bonusTotal: calcData.bonusTotal,
+        grandTotal: calcData.grandTotal,
+        jointEligible: calcData.jointEligible,
+        details: calcData.details
+      };
+
+      const history = loadHistory();
+      history.unshift(record);
+      if (history.length > 10) history.length = 10;
+
+      saveHistoryToStorage(history);
+      renderHistory();
+      alert("履歴を保存しました。");
+    }
+
+    function deleteHistoryItem(id) {
+      const ok = confirm("この履歴を削除します。よろしいですか？");
+      if (!ok) return;
+      const history = loadHistory().filter(item => item.id !== id);
+      saveHistoryToStorage(history);
+      renderHistory();
+    }
+
+    function renderHistory() {
+      const history = loadHistory();
+      const historyList = document.getElementById("historyList");
+      historyList.innerHTML = "";
+
+      let historyGrandTotal = 0;
+
+      if (history.length === 0) {
+        historyList.innerHTML = `<div class="empty">まだ履歴はありません。</div>`;
+      } else {
+        history.forEach((record, index) => {
+          historyGrandTotal += Number(record.grandTotal) || 0;
+
+          const detailText = record.details.map((item) => {
+            let t = `${item.name}: ${formatNumber(item.qty)}個 × ${formatNumber(item.unitPrice)}円 = ${formatNumber(item.subtotal)}円`;
+            if (item.stopped) {
+              t += ` / 買取停止`;
+            } else if (item.bonus > 0) {
+              t += ` / ボーナス ${formatNumber(item.bonus)}個`;
+            }
+            return t;
+          }).join(" / ");
+
+          const nameParts = [];
+          if (record.staffName) nameParts.push(`担当 ${record.staffName}`);
+          if (record.customerName) nameParts.push(`相手 ${record.customerName}`);
+          const nameLine = nameParts.length ? nameParts.join(" / ") : "担当・相手未入力";
+
+          const div = document.createElement("div");
+          div.className = "history-item";
+          div.innerHTML = `
+            <div class="history-top">
+              <div>${index + 1}件目</div>
+              <div>${record.datetime}</div>
+            </div>
+            <div class="history-name">${nameLine}</div>
+            <div class="history-total">${formatNumber(record.grandTotal)} 円</div>
+            <div class="history-detail">${detailText}</div>
+            <div class="history-memo">ボーナス: ${formatNumber(record.bonusTotal)}個 / joint判定: ${record.jointEligible ? "対象（joint30個）" : "対象外"}</div>
+            ${record.memo ? `<div class="history-memo">メモ: ${record.memo}</div>` : ""}
+            <div class="history-actions no-print">
+              <button class="btn-delete" onclick="deleteHistoryItem(${record.id})">この履歴を削除</button>
+            </div>
+          `;
+          historyList.appendChild(div);
+        });
+      }
+
+      document.getElementById("historyGrandTotal").innerText = formatNumber(historyGrandTotal);
+      renderPeriodStats(history);
+      renderRankings(history);
+    }
+
+    function renderPeriodStats(history) {
+      const todayKey = getTodayKey();
+      const weekStart = getWeekStart();
+      const monthStart = getMonthStart();
+      const now = new Date();
+
+      const parseRecordDate = (record) => {
+        const safe = record.datetime.replace(/\//g, "-");
+        return new Date(safe);
+      };
+
+      const todayHistory = history.filter(item => item.dateKey === todayKey);
+      const weekHistory = history.filter(item => parseRecordDate(item) >= weekStart);
+      const monthHistory = history.filter(item => {
+        const d = parseRecordDate(item);
+        return d >= monthStart && d <= now;
+      });
+
+      const todayTotal = todayHistory.reduce((sum, item) => sum + (Number(item.grandTotal) || 0), 0);
+      const weekTotal = weekHistory.reduce((sum, item) => sum + (Number(item.grandTotal) || 0), 0);
+      const monthTotal = monthHistory.reduce((sum, item) => sum + (Number(item.grandTotal) || 0), 0);
+      const latestCustomer = history.length > 0 ? (history[0].customerName || "-") : "-";
+
+      document.getElementById("todayCount").innerText = formatNumber(todayHistory.length);
+      document.getElementById("todayTotal").innerText = `${formatNumber(todayTotal)}円`;
+      document.getElementById("weekCount").innerText = formatNumber(weekHistory.length);
+      document.getElementById("weekTotal").innerText = `${formatNumber(weekTotal)}円`;
+      document.getElementById("monthCount").innerText = formatNumber(monthHistory.length);
+      document.getElementById("monthTotal").innerText = `${formatNumber(monthTotal)}円`;
+      document.getElementById("latestCustomer").innerText = latestCustomer;
+    }
+
+    function renderRankings(history) {
+      const materialTotals = {};
+      const customerTotals = {};
+
+      history.forEach(record => {
+        const customer = record.customerName || "名無し";
+        customerTotals[customer] = (customerTotals[customer] || 0) + (Number(record.grandTotal) || 0);
+
+        record.details.forEach(item => {
+          materialTotals[item.name] = (materialTotals[item.name] || 0) + (Number(item.qty) || 0);
+        });
+      });
+
+      const materialRanking = Object.entries(materialTotals)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+
+      const customerRanking = Object.entries(customerTotals)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+
+      document.getElementById("materialRanking").innerHTML =
+        materialRanking.length === 0
+          ? "<li>まだデータがありません</li>"
+          : materialRanking.map(([name, qty]) => `<li>${name} - ${formatNumber(qty)}個</li>`).join("");
+
+      document.getElementById("customerRanking").innerHTML =
+        customerRanking.length === 0
+          ? "<li>まだデータがありません</li>"
+          : customerRanking.map(([name, total]) => `<li>${name} - ${formatNumber(total)}円</li>`).join("");
+    }
+
+    async function copySummary() {
+      const text = document.getElementById("summaryText").value;
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("明細をコピーしました。");
+      } catch (e) {
+        alert("コピーに失敗しました。");
+      }
+    }
+
+    function downloadCSV() {
+      const history = loadHistory();
+      if (history.length === 0) {
+        alert("CSVに出す履歴がありません。");
+        return;
+      }
+
+      const rows = [
+        ["日時", "担当", "相手", "小計(円)", "ボーナス(個)", "合計(円)", "joint判定", "メモ", "内訳"]
+      ];
+
+      history.forEach(record => {
+        const details = record.details.map(item => {
+          let t = `${item.name}:${item.qty}個×${item.unitPrice}円=${item.subtotal}円`;
+          if (item.stopped) t += "(停止)";
+          if (item.bonus > 0) t += `+ボーナス${item.bonus}個`;
+          return t;
+        }).join(" / ");
+
+        rows.push([
+          record.datetime,
+          record.staffName || "",
+          record.customerName || "",
+          record.subtotal,
+          record.bonusTotal,
+          record.grandTotal,
+          record.jointEligible ? "対象" : "対象外",
+          record.memo || "",
+          details
+        ]);
+      });
+
+      const csv = rows.map(row =>
+        row.map(value => `"${String(value).replace(/"/g, '""')}"`).join(",")
+      ).join("\n");
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `naniwa_motor_history_${Date.now()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function resetInputs() {
+      document.getElementById("staffName").value = "";
+      document.getElementById("customerName").value = "";
+      document.getElementById("memo").value = "";
+      document.getElementById("bonusThreshold").value = 2000;
+      document.getElementById("bonusAmount").value = 30;
+      document.getElementById("jointThreshold").value = 2000;
+      document.getElementById("bonusEnabled").checked = true;
+      document.getElementById("jointEnabled").checked = true;
+
+      materials.forEach((material) => {
+        document.getElementById(material.key).value = 0;
+        document.getElementById(`${material.key}_price`).value = material.price;
+      });
+
+      calc();
+    }
+
+    function deleteAllHistory() {
+      const ok = confirm("履歴をすべて削除します。よろしいですか？");
+      if (!ok) return;
+      localStorage.removeItem(HISTORY_KEY);
+      renderHistory();
+    }
+
+    loadSettings();
+    renderTable();
+    calc();
+
+    document.getElementById("unlockCode").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") unlockApp();
+    });
+
+    document.getElementById("staffName").addEventListener("input", calc);
+    document.getElementById("customerName").addEventListener("input", calc);
+    document.getElementById("memo").addEventListener("input", calc);
+    document.getElementById("bonusThreshold").addEventListener("input", calc);
+    document.getElementById("bonusAmount").addEventListener("input", calc);
+    document.getElementById("jointThreshold").addEventListener("input", calc);
+    document.getElementById("bonusEnabled").addEventListener("change", calc);
+    document.getElementById("jointEnabled").addEventListener("change", calc);
+  </script>
+</body>
+</html>
